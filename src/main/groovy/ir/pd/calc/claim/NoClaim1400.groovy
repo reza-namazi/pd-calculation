@@ -29,8 +29,8 @@ class NoClaim1400 implements CalcItem {
     @Override
     Calculation apply(Calculation calculation) {
         calculation.next(NO_CLAIM)
-                .with({ Request r, Calculation c -> r.numberOfNoClaimYears / 100 * 10 * c.get(BASE) + c.get(BASE) })
-                .detail({ Request r, Calculation c -> [type: 'NO_CLAIM', base: c.get(BASE)] })
+                .with { Request r, Calculation c -> r.numberOfNoClaimYears / 100 * 10 * c.get(BASE) + c.get(BASE) }
+                .detail { Request r, Calculation c -> [type: 'NO_CLAIM', base: c.get(BASE)] }
                 .end()
     }
 }

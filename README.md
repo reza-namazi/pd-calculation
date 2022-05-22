@@ -1,0 +1,1 @@
+for a brief and quick **Groovy** guide refer to : [Style-Guide](https://docs.groovy-lang.org/docs/next/html/documentation/style-guide.html)

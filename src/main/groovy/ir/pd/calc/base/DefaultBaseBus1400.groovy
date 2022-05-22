@@ -25,8 +25,8 @@ class DefaultBaseBus1400 implements CalcItem {
     @Override
     Calculation apply(Calculation calculation) {
         calculation.next(calculationTyp())
-                .with({ r, c -> 200.0 })
-                .detail({ Request r, Calculation c -> [type: 'BASE', bodyType: 'BUS', base: c.get(BASE)] })
+                .with { r, c -> 200.0 }
+                .detail { Request r, Calculation c -> [type: 'BASE', bodyType: 'BUS', base: c.get(BASE)] }
                 .end()
     }
 }

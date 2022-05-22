@@ -1,6 +1,6 @@
 package ir.pd
 
-import groovy.transform.AutoClone
+
 import groovy.transform.ToString
 import groovy.transform.TupleConstructor
 import groovy.util.logging.Slf4j
@@ -9,8 +9,7 @@ import ir.pd.calc.CalculationType
 import java.util.concurrent.CopyOnWriteArrayList
 
 @TupleConstructor
-@ToString(includeNames = true)
-@AutoClone
+@ToString(includeNames = false, excludes = ['request'])
 @Slf4j
 class Calculation {
 
@@ -21,9 +20,15 @@ class Calculation {
         details.find { it.ct == ct }?.get()
     }
 
+    Calculation(Request request) {
+        this.request = request
+    }
+
     def eval() {
         log.error('eval called')
-        details.collect({ it.eval() })
+        details.collect { it.eval() }
+
+        this
     }
 
     CalculationBuilder next(CalculationType ct) {

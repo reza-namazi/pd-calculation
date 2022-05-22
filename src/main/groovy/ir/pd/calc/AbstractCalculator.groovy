@@ -2,18 +2,21 @@ package ir.pd.calc
 
 import groovy.util.logging.Slf4j
 import ir.pd.Calculation
-import ir.pd.Request
 
 @Slf4j
 trait AbstractCalculator {
 
     abstract CalcItem[] items()
 
-    def calculate = { Request r, Calculation c ->
+    Calculation doCalculate(Calculation c) {
+        calculate(c)
+    }
+
+    def calculate = { Calculation c ->
         items()
-                .findAll { it.match(r) }
+                .findAll { it.match c.request }
                 .eachWithIndex { it, idx -> log.debug('{} : {}', idx, it.calculationTyp() as String) }
-                .inject(c) { cc, item ->  item.apply(cc) }
+                .inject(c) { cc, item -> item.apply cc }
                 .eval()
     }
 }

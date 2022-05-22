@@ -20,27 +20,13 @@ class DefaultTotal1400 implements CalcItem {
     boolean match(Request request) {
         true
     }
-/*    def calc = { Request r, Calculation c ->
-        def value = c.base + c.noClaimDiscount + c.tax
-        assert value == c.acc
-        c.copyWith(total: value, operation: 'total')
-    }*/
 
     @Override
     Calculation apply(Calculation calculation) {
         calculation.next(TOTAL)
-                .with({ Request r, Calculation c ->
-                    log.debug('DefaultTotal1400 {}')
-                    c.get(BASE) + c.get(NO_CLAIM) + c.get(TAX)
-                })
-                .detail({ Request r, Calculation c -> [type: 'TOTAL', base: c.get(BASE), noClaim: c.get(NO_CLAIM), tax: c.get(TAX)] })
+                .with { Request r, Calculation c -> c.get(BASE) + c.get(NO_CLAIM) + c.get(TAX) }
+                .detail { Request r, Calculation c -> [type: 'TOTAL', base: c.get(BASE), noClaim: c.get(NO_CLAIM), tax: c.get(TAX)] }
                 .end()
     }
 
-/*    @Override
-    Calculation apply(Request r, Calculation c) {
-        def value = c.base + c.noClaimDiscount + c.tax
-        assert value == c.acc
-        c.copyWith(total: value, operation: 'total')
-    }*/
 }

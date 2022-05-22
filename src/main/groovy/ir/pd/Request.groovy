@@ -1,17 +1,21 @@
 package ir.pd
 
+import groovy.transform.Canonical
 import groovy.transform.Immutable
+import groovy.transform.ImmutableBase
 import groovy.transform.builder.Builder
 
 import java.time.Instant
 
-@Immutable
+@Immutable(copyWith = true)
+@Canonical
 @Builder
 class Request {
     String correlationId
     Instant currentDate
-    int manufactureDate
-    int numberOfNoClaimYears
+    Integer manufactureYear
+    Integer numberOfNoClaimYears
+    BigDecimal numberOfNoClaimRate
     VehicleBodyType bodyType
     UsageType usageType
     BigDecimal tax
